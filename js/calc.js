@@ -3,26 +3,27 @@ var results = [];
 
 var calculator = {
   "entry": "0",
+  "entries": [],
   "total": 0,
   "history": "0",
   "realHistory": "0",
   "lastOperand": "",
   "operations" : {
-    "+" : function(n) {
-      return calculator.total + n;
+    "+" : function(a,b) {
+      return a + b;
     },
-    "-" : function(n) {
-      return calculator.total - n;
+    "-" : function(a,b) {
+      return a - b;
     },
-    "x" : function(n) {
-      return calculator.total * n;
+    "x" : function(a,b) {
+      return a * b;
     },
-    "÷" : function (n) {
-      return calculator.total / n;
+    "÷" : function (a,b) {
+      return a / b;
+    },
+    "=" : function() {
+      return true;
     }
-  },
-  "calculate" : function() {
-
   },
   "updateView" : function(){
     $(".result").html(calculator.total);
@@ -43,34 +44,34 @@ $(document).ready(function() {
     var op = $(this).val();
     console.log($(this).val());
     if (calculator.operations.hasOwnProperty(op)) {
-      if (calculator.entry === calculator.history) {
+      calculator.entries.push(calculator.entry);
+      if (calculator.entries.length === 1) {
         calculator.total = parseFloat(calculator.entry);
       }
       else {
-        calculator.total = calculator.operations[calculator.lastOperand](parseFloat(calculator.entry));
+        calculator.total = calculator.operations[calculator.lastOperand](parseFloat(calculator.entries[0].toPrecision(3)), parseFloat(calculator.entries[1].toPrecision(3)));
       }
       calculator.entry = "0";
       calculator.lastOperand = op;
       calculator.realHistory = calculator.history;
     }
     else if (op === "ce") {
-      calculator.entry = "";
+      calculator.entry = "0";
       calculator.history = calculator.realHistory;
       op = "";
     }
     else if (op === "c") {
       calculator.entry = "0";
       calculator.total = 0;
-      calculator.history = "";
+      calculator.history = "0";
+      calculator.realHistory = "0";
       calculator.lastOperand = "";
     }
     else {
       calculator.entry += op;
     }
-    calculator.history += op;
+    if (["ce", "c", "="].indexOf(op) === -1) calculator.history += op;
     calculator.updateView();
   });
-
-  
 });
 

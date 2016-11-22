@@ -7,32 +7,65 @@ body {
   font-family: 'Josefin Sans', sans-serif;
   font-size: large;
   color: rgb(52, 52, 52);
-  height: 100%;
-  margin: 0px;
-  padding: 0px;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-position: center;
-  background-size: cover;
   text-shadow: rgba(115, 111, 111, 0.55) 0px 0px 4px;
 }
 
-.container {
+.div-center {
+  text-align: center;
+  width: 40%;
   margin-left: auto;
   margin-right: auto;
   margin-top: 1rem;
 }
 
+.display {
+  background-color: rgba(158, 158, 158, 0.5);
+  border: 5px solid rgba(158, 158, 158, 0.1);
+}
 
-.results {
-  text-align: left;
-  list-style: none;
+.result,.history {
+  text-align: right;
   margin-left: 10%;
   margin-right: 10%;
-  margin-top: 4%;
+}
+
+.history {
+  font-size: small;
+}
+
+.section {
+  margin-top: 1rem;
+  margin-top: 1rem;
 }
 
 .title {
   font-weight: bolder;
   font-size: larger;
+}
+
+button {
+  color: rgba(10,10,10, 0.7);
+  font-size: x-large;
+  font-weight: 600;
+  box-shadow: #56534d 1px 1px;
+  border-bottom: 2px solid #56534d;
+  width: 4rem;
+  height: 4rem;
+  background-color: rgb(220, 218, 218);
+}
+
+button.wide {
+  width: 8.3rem;
+}
+
+button.clear {
+  background-color: rgba(212, 65, 18, 0.9);
+}
+
+button.operator {
+  background-color: rgb(255, 152, 0);
+}
+
+.footer {
+  margin-top: 2rem;
 }
