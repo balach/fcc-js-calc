@@ -28,18 +28,23 @@ var calculator = {
   "updateView" : function(){
     $(".result").html(calculator.total);
     $(".history").html(calculator.history);
+  },
+  "clearEntry" : function() {
+    calculator.entry = "0";
+    calculator.history = calculator.realHistory;
+    op = "";
+  },
+  "reset" : function(){
+    calculator.entry = "0";
+    calculator.total = 0;
+    calculator.history = "0";
+    calculator.realHistory = "0";
+    calculator.lastOperand = "";
   }
 };
 
 // Start the engines
 $(document).ready(function() {
-  $(".clear").on("click", function(){
-    calculator.entry = "0";
-    calculator.total = 0;
-    calculator.history = "";
-    calculator.lastOperand = "";
-    calculator.updateView();
-  });
   $("button").on("click", function(){
     var op = $(this).val();
     console.log($(this).val());
@@ -56,16 +61,10 @@ $(document).ready(function() {
       calculator.realHistory = calculator.history;
     }
     else if (op === "ce") {
-      calculator.entry = "0";
-      calculator.history = calculator.realHistory;
-      op = "";
+      calculator.clearEntry();
     }
     else if (op === "c") {
-      calculator.entry = "0";
-      calculator.total = 0;
-      calculator.history = "0";
-      calculator.realHistory = "0";
-      calculator.lastOperand = "";
+      calculator.reset();
     }
     else {
       calculator.entry += op;
