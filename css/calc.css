@@ -18,19 +18,32 @@ body {
   margin-top: 1rem;
 }
 
+.calculator-container {
+  width: 20rem;
+}
+
+
 .display {
   background-color: rgba(158, 158, 158, 0.5);
   border: 5px solid rgba(158, 158, 158, 0.1);
+  width: 16.5rem;
+  margin-left: 1.5rem;
+  height: 3rem;
+  margin-bottom: -0.8rem;
 }
 
-.result,.history {
+.result {
+  font-size: xx-large;
   text-align: right;
   margin-left: 10%;
-  margin-right: 10%;
+  margin-right: 8%;
 }
 
 .history {
   font-size: small;
+  text-align: right;
+  margin-left: 10%;
+  margin-right: 10%;
 }
 
 .section {
