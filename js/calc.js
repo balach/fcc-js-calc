@@ -1,6 +1,4 @@
 // Set up global variables
-var results = [];
-
 var calculator = {
   "entry": "0",
   "entries": [],
@@ -10,16 +8,20 @@ var calculator = {
   "lastOperand": "",
   "operations" : {
     "+" : function(a,b) {
-      return  parseFloat(parseFloat(parseFloat(a) + parseFloat(b)).toPrecision(3));
+      return  parseFloat(parseFloat(a) + parseFloat(b));
     },
     "-" : function(a,b) {
-      return a - b;
+      return parseFloat(parseFloat(a) - parseFloat(b));
     },
     "x" : function(a,b) {
-      return a * b;
+      return parseFloat(parseFloat(a) * parseFloat(b));
     },
     "÷" : function (a,b) {
-      return a / b;
+      if (parseFloat(b) == 0) {
+        alert("Division by Zero is not cool.");
+        return parseFloat(a);
+      } 
+      return parseFloat(parseFloat(a) / parseFloat(b));
     },
     "=" : function() {
       return true;
@@ -52,51 +54,47 @@ var calculator = {
 // Start the engines
 $(document).ready(function() {
 
+  $("button.surprise").on("click", function(){
+    $("button").toggleClass("magic");
+  });
   $("button.digit").on("click", function(){
     var digit = $(this).val();
-    console.log("Entered Digit", digit);
     calculator.entry += digit;
     calculator.history += digit;
     calculator.updateView();
     $(".result").html(calculator.entry);
   });
   $("button.reset").on("click", function(){
-    console.log("Reset Pressed");
     calculator.reset();
   });
   $("button.clear-entry").on("click", function(){
-    console.log("Clear Entry Pressed");
     calculator.clearEntry();
   });
   $("button.operator").on("click", function(){
     var op = $(this).val();
     var dontRecord = false;
-    console.log("Operation Requested", op);
     if (calculator.operations.hasOwnProperty(op)) {
-
       if (calculator.entries.length <= 1 && calculator.lastOperand === "") {
         if (calculator.entries[0] !== calculator.total) {
-          calculator.entries[0] = parseFloat(calculator.entry).toPrecision(3);
+          calculator.entries[0] = parseFloat(calculator.entry);
           calculator.entry = "0";
         }
       }
       else if (calculator.lastOperand !== "") {
         if (calculator.entries.length === 1 && calculator.entry !== "0") {
-          calculator.entries[1] = parseFloat(calculator.entry).toPrecision(3);
-          calculator.total = parseFloat(calculator.operations[calculator.lastOperand](parseFloat(calculator.entries[0]).toPrecision(3), parseFloat(calculator.entries[1]).toPrecision(3))).toPrecision(3);
+          calculator.entries[1] = parseFloat(calculator.entry);
+          calculator.total = parseFloat(calculator.operations[calculator.lastOperand](calculator.entries[0], calculator.entries[1]).toFixed(3));
           calculator.entries = [calculator.total];
           calculator.entry = "0";
         }
         else if (calculator.entry === "0") {
           console.log("Hit operation with out entry", calculator.realHistory, op, calculator.history);
           dontRecord = true;
-        }
-        
+        }  
       }
       if (op !== "=") {
         calculator.lastOperand = op;
         if (!!dontRecord) {
-          //TODO: Remove last operation character from calculator.history
           calculator.history = calculator.history.slice(0, -1);
         }
         calculator.history += op;
@@ -109,6 +107,4 @@ $(document).ready(function() {
       calculator.updateView();
     }
   });
-
 });
-
